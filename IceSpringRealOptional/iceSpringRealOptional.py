@@ -2,29 +2,32 @@
 
 from __future__ import annotations
 
-from typing import *
+from typing import Generic, Optional, Callable, Any, Union
 
-T = TypeVar("T")
-U = TypeVar("U")
+from IceSpringRealOptional.generics import T, U
 
 
 class Option(Generic[T]):
     _value: Optional[T]
 
     @classmethod
-    def ofNullable(cls, value: Optional[T]) -> Option[T]:
+    def _new(cls, value: Optional[T]) -> Option[T]:
         option = cls()
         option._value = value
         return option
 
     @classmethod
-    def of(cls, value: Optional[T]) -> Option[T]:
+    def ofNullable(cls, value: Optional[T]) -> Option[T]:
+        return cls._new(value)
+
+    @classmethod
+    def of(cls, value: T) -> Option[T]:
         assert value is not None
-        return cls.ofNullable(value)
+        return cls._new(value)
 
     @classmethod
     def empty(cls) -> Option[T]:
-        return cls.ofNullable(None)
+        return cls._new(None)
 
     def isPresent(self) -> bool:
         return self._value is not None
@@ -33,13 +36,13 @@ class Option(Generic[T]):
         if self._value is not None:
             consumer(self._value)
 
-    def get(self) -> T:
+    def get(self) -> Optional[T]:
         return self._value
 
-    def orElse(self, other: T) -> T:
+    def orElse(self, other: Optional[U]) -> Optional[Union[T, U]]:
         return self._value if self._value is not None else other
 
-    def orElseGet(self, other: Callable[[], T]) -> T:
+    def orElseGet(self, other: Callable[[], U]) -> Union[T, U]:
         return self._value if self._value is not None else other()
 
     def orElseThrow(self, exceptionSupplier: Callable[[], BaseException]):

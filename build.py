@@ -37,7 +37,7 @@ def processCode(code: str) -> str:
 
 def doBuild():
     projectName = "IceSpringRealOptional"
-    readme = Path("README.md").read_text(newline=None)
+    readme = Path("README.md").read_text()
     Path("target").rmtree(ignore_errors=True)
     Path(projectName).copytree(Path(f"target/{projectName}"))
     for path in Path(f"target/{projectName}").glob("**/*.py"):
@@ -53,7 +53,7 @@ def doBuild():
             license='MIT',
             author='BaiJiFeiLong',
             author_email='baijifeilong@gmail.com',
-            version='1.0.1',
+            version='1.1.0',
             description='Real Optional type in python, not @Nullable annotation.',
             packages=[f"{projectName}"],
             long_description=readme,
