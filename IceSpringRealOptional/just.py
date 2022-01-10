@@ -23,5 +23,5 @@ class Just(Generic[T]):
         consumer(self._value)
         return self
 
-    def then(self, mapper: Callable[[T], U]) -> Just[U]:
+    def map(self, mapper: Callable[[T], U]) -> Just[U]:
         return Just.of(mapper(self._value))

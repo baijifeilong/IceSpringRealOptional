@@ -42,3 +42,6 @@ class Vector(list, Generic[T, U]):
     def apply(self, consumer: Callable[[Vector[T]], Any]) -> Vector[T]:
         consumer(self)
         return self
+
+    def sorted(self, key: Callable[[T], Any] = None, reverse: bool = False) -> Vector[T]:
+        return Vector(sorted(self, **{k: v for k, v in dict(key=key, reverse=reverse).items() if v is not None}))
