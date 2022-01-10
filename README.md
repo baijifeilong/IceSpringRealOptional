@@ -20,20 +20,20 @@
 ## Usage
 
 ```python
-from IceSpringRealOptional import Option
+from IceSpringRealOptional.maybe import Maybe
 
-option = Option.ofNullable("CommonSense")
-print("{}: isPresent={}".format(option, option.isPresent()))
-print("{}: value={}".format(option, option.get()))
-option.ifPresent(lambda x: print(f"{x} exist"))
-print("{}'s length: {}".format(option, option.map(len)))
+maybe = Maybe.ofNullable("CommonSense")
+print("{}: isPresent={}".format(maybe, maybe.isPresent()))
+print("{}: value={}".format(maybe, maybe.get()))
+maybe.ifPresent(lambda x: print(f"{x} exist"))
+print("{}'s length: {}".format(maybe, maybe.map(len)))
 
-empty = Option.empty()
+empty = Maybe.empty()
 print(empty.orElse("{} is empty".format(empty)))
 print(empty.orElseGet(lambda: "{} is empty again".format(empty)))
 
 try:
-    Option.empty().orElseThrow(lambda: RuntimeError("Unlucky"))
+    Maybe.empty().orElseThrow(lambda: RuntimeError("Unlucky"))
 except RuntimeError as e:
     print("Runtime error caught: {}".format(e))
 ```
@@ -41,12 +41,12 @@ except RuntimeError as e:
 ### Example Output
 
 ```
-<Option:CommonSense>: isPresent=True
-<Option:CommonSense>: value=CommonSense
+<Maybe:CommonSense>: isPresent=True
+<Maybe:CommonSense>: value=CommonSense
 CommonSense exist
-<Option:CommonSense>'s length: <Option:11>
-<Option:None> is empty
-<Option:None> is empty again
+<Maybe:CommonSense>'s length: <Maybe:11>
+<Maybe:None> is empty
+<Maybe:None> is empty again
 Runtime error caught: Unlucky
 ```
 

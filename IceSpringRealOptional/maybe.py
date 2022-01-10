@@ -7,26 +7,26 @@ from typing import Generic, Optional, Callable, Any, Union
 from IceSpringRealOptional.generics import T, U
 
 
-class Option(Generic[T]):
+class Maybe(Generic[T]):
     _value: Optional[T]
 
     @classmethod
-    def _new(cls, value: Optional[T]) -> Option[T]:
-        option = cls()
-        option._value = value
-        return option
+    def _new(cls, value: Optional[T]) -> Maybe[T]:
+        maybe = cls()
+        maybe._value = value
+        return maybe
 
     @classmethod
-    def ofNullable(cls, value: Optional[T]) -> Option[T]:
+    def ofNullable(cls, value: Optional[T]) -> Maybe[T]:
         return cls._new(value)
 
     @classmethod
-    def of(cls, value: T) -> Option[T]:
+    def of(cls, value: T) -> Maybe[T]:
         assert value is not None
         return cls._new(value)
 
     @classmethod
-    def empty(cls) -> Option[T]:
+    def empty(cls) -> Maybe[T]:
         return cls._new(None)
 
     def isPresent(self) -> bool:
@@ -51,28 +51,28 @@ class Option(Generic[T]):
         else:
             raise exceptionSupplier()
 
-    def filter(self, predicate: Callable[[T], bool]) -> Option[T]:
+    def filter(self, predicate: Callable[[T], bool]) -> Maybe[T]:
         if predicate(self):
             return self
         return self.__class__.empty()
 
-    def map(self, mapper: Callable[[T], U]) -> Option[U]:
+    def map(self, mapper: Callable[[T], U]) -> Maybe[U]:
         if self._value is not None:
             return self.__class__.of(mapper(self._value))
         return self.__class__.empty()
 
-    def flatMap(self, mapper: Callable[[T], Option[U]]) -> Option[U]:
+    def flatMap(self, mapper: Callable[[T], Maybe[U]]) -> Maybe[U]:
         if self._value is not None:
             return mapper(self._value)
         return self.__class__.empty()
 
     def __str__(self) -> str:
-        return f"<Option:{self._value}>"
+        return f"<Maybe:{self._value}>"
 
     def __repr__(self) -> str:
-        return f"<Option:{repr(self._value)}>"
+        return f"<Maybe:{repr(self._value)}>"
 
     def __eq__(self, other: Union[T, Any]):
-        if isinstance(other, Option):
+        if isinstance(other, Maybe):
             return self._value == other._value
         return False
