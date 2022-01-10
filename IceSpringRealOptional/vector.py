@@ -14,16 +14,16 @@ class Vector(list, Generic[T, U]):
         return cls(args)
 
     def get(self, index: int) -> Maybe[T]:
-        return Maybe.ofNullable(self[index] if index < len(self) else None)
+        return Maybe.ofNullable(self[index] if 0 <= index < len(self) else None)
 
     def getOrNone(self, index: int) -> Optional[T]:
-        return self[index] if index < len(self) else None
+        return self[index] if 0 <= index < len(self) else None
 
     def getOrElse(self, index: int, other: U) -> Union[T, U]:
-        return self[index] if index < len(self) else other
+        return self[index] if 0 <= index < len(self) else other
 
     def getOrElseGet(self, index: int, supplier: Callable[[], U]) -> Union[T, U]:
-        return self[index] if index < len(self) else supplier()
+        return self[index] if 0 <= index < len(self) else supplier()
 
     def getOrElseThrow(self, index: int, exceptionSupplier: Callable[[], BaseException]):
         if index < len(self):
