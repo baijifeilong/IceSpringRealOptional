@@ -11,6 +11,7 @@ from IceSpringPathLib import Path
 
 def main():
     initLogging()
+    os.chdir(Path(__file__).parent)
     doBuild()
     logging.info("Generated files:")
     for path in Path("target").glob("**/dist/*"):

@@ -45,3 +45,9 @@ class Vector(list, Generic[T, U]):
 
     def sorted(self, key: Callable[[T], Any] = None, reverse: bool = False) -> Vector[T]:
         return Vector(sorted(self, **{k: v for k, v in dict(key=key, reverse=reverse).items() if v is not None}))
+
+    def size(self) -> int:
+        return len(self)
+
+    def isEmpty(self) -> bool:
+        return len(self) <= 0

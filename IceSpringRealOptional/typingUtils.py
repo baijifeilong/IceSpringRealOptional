@@ -12,5 +12,10 @@ class TypingUtils(object):
     def gg(value, _type: Type[T]) -> T:
         return value
 
+    @staticmethod
+    def unused(*args) -> None:
+        pass
+
 
 gg = TypingUtils.gg
+unused = TypingUtils.unused

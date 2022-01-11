@@ -32,6 +32,9 @@ class Maybe(Generic[T]):
     def isPresent(self) -> bool:
         return self._value is not None
 
+    def isAbsent(self) -> bool:
+        return self._value is None
+
     def ifPresent(self, consumer: Callable[[T], Any]) -> None:
         if self._value is not None:
             consumer(self._value)
