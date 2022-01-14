@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Type
+from typing import Type, Any
 
 from IceSpringRealOptional.generics import T
 
 
 class TypingUtils(object):
     @staticmethod
-    def gg(value, _type: Type[T]) -> T:
+    def gg(value, _type: Type[T] = Any) -> T:
         return value
 
     @staticmethod
