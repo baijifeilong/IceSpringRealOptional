@@ -54,7 +54,7 @@ def doBuild():
             license='MIT',
             author='BaiJiFeiLong',
             author_email='baijifeilong@gmail.com',
-            version='1.2.3',
+            version='1.2.4',
             description='Real Optional type in python, not @Nullable annotation.',
             packages=[f"{projectName}"],
             long_description=readme,

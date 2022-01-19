@@ -8,7 +8,7 @@ from IceSpringRealOptional.generics import T, U
 from IceSpringRealOptional.maybe import Maybe
 
 
-class Vector(list, Generic[T, U]):
+class Vector(list, Generic[T]):
     @classmethod
     def of(cls, *args: T) -> Vector[T]:
         return cls(args)
